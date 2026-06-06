@@ -1,0 +1,2494 @@
+
+--SLL Atpos--
+
+import java.util.*;
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedListMenu {
+    static Node head = null;
+
+    static void insertAtPosition(int data, int pos) {
+        Node newNode = new Node(data);
+
+        if (pos == 1) {
+            newNode.next = head;
+            head = newNode;
+            return;
+        }
+
+        Node temp = head;
+
+        for (int i = 1; i < pos - 1 && temp != null; i++) {
+            temp = temp.next;
+        }
+
+        if (temp == null) {
+            System.out.println("Invalid Position");
+            return;
+        }
+
+        newNode.next = temp.next;
+        temp.next = newNode;
+    }
+
+    static void display() {
+        if (head == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+
+        Node temp = head;
+
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int ch;
+
+        do {
+            System.out.println("\n1.Insert At Position");
+            System.out.println("2.Display");
+            System.out.println("3.Exit");
+            System.out.print("Enter Choice: ");
+            ch = sc.nextInt();
+
+            switch (ch) {
+                case 1:
+                    System.out.print("Enter Data: ");
+                    int data = sc.nextInt();
+
+                    System.out.print("Enter Position: ");
+                    int pos = sc.nextInt();
+
+                    insertAtPosition(data, pos);
+                    break;
+
+                case 2:
+                    display();
+                    break;
+
+                case 3:
+                    System.out.println("Exiting...");
+                    break;
+
+                default:
+                    System.out.println("Invalid Choice");
+            }
+        } while (ch != 3);
+    }
+}
+
+--Singly LL--
+
+import java.util.Scanner;
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class SinglyLinkedList {
+
+    static Node head = null;
+
+    static void insertAtStart(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    static void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+
+        Node temp = head;
+
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+
+        temp.next = newNode;
+    }
+
+    static void insertAtPos(int data, int pos) {
+        if (pos == 1) {
+            insertAtStart(data);
+            return;
+        }
+
+        Node temp = head;
+
+        for (int i = 1; i < pos - 1 && temp != null; i++) {
+            temp = temp.next;
+        }
+
+        if (temp == null) {
+            System.out.println("Invalid Position");
+            return;
+        }
+
+        Node newNode = new Node(data);
+        newNode.next = temp.next;
+        temp.next = newNode;
+    }
+
+    static void display() {
+        if (head == null) {
+            System.out.println("Linked List is Empty");
+            return;
+        }
+
+        Node temp = head;
+
+        while (temp != null) {
+            System.out.print(temp.data + " -> ");
+            temp = temp.next;
+        }
+
+        System.out.println("NULL");
+    }
+
+    static void deleteFromStart() {
+        if (head == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+
+        head = head.next;
+    }
+
+    static void deleteFromEnd() {
+        if (head == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+
+        if (head.next == null) {
+            head = null;
+            return;
+        }
+
+        Node temp = head;
+
+        while (temp.next.next != null) {
+            temp = temp.next;
+        }
+
+        temp.next = null;
+    }
+
+    static void deleteFromPos(int pos) {
+        if (head == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+
+        if (pos == 1) {
+            deleteFromStart();
+            return;
+        }
+
+        Node temp = head;
+
+        for (int i = 1; i < pos - 1 && temp != null; i++) {
+            temp = temp.next;
+        }
+
+        if (temp == null || temp.next == null) {
+            System.out.println("Invalid Position");
+            return;
+        }
+
+        temp.next = temp.next.next;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int choice, data, pos;
+
+        do {
+            System.out.println("\n----- Singly Linked List -----");
+            System.out.println("1. Insert At Start");
+            System.out.println("2. Insert At End");
+            System.out.println("3. Insert At Position");
+            System.out.println("4. Display");
+            System.out.println("5. Delete From Start");
+            System.out.println("6. Delete From End");
+            System.out.println("7. Delete From Position");
+            System.out.println("8. Exit");
+
+            System.out.print("Enter Choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Data: ");
+                    insertAtStart(sc.nextInt());
+                    break;
+
+                case 2:
+                    System.out.print("Enter Data: ");
+                    insertAtEnd(sc.nextInt());
+                    break;
+
+                case 3:
+                    System.out.print("Enter Position: ");
+                    pos = sc.nextInt();
+                    System.out.print("Enter Data: ");
+                    data = sc.nextInt();
+                    insertAtPos(data, pos);
+                    break;
+
+                case 4:
+                    display();
+                    break;
+
+                case 5:
+                    deleteFromStart();
+                    break;
+
+                case 6:
+                    deleteFromEnd();
+                    break;
+
+                case 7:
+                    System.out.print("Enter Position: ");
+                    deleteFromPos(sc.nextInt());
+                    break;
+
+                case 8:
+                    System.out.println("Exiting...");
+                    break;
+
+                default:
+                    System.out.println("Invalid Choice");
+            }
+
+        } while (choice != 8);
+
+        sc.close();
+    }
+}
+
+--Reverse a LL--
+
+import java.util.*;
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class ReverseLinkedList {
+    static Node head = null;
+
+    static void insert(int data) {
+        Node newNode = new Node(data);
+
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+
+        Node temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+
+        temp.next = newNode;
+    }
+
+    static void reverse() {
+        Node prev = null;
+        Node current = head;
+        Node next;
+
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        head = prev;
+    }
+
+    static void display() {
+        Node temp = head;
+
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Number of Nodes: ");
+        int n = sc.nextInt();
+
+        System.out.println("Enter Elements:");
+        for (int i = 0; i < n; i++) {
+            insert(sc.nextInt());
+        }
+
+        System.out.println("Original List:");
+        display();
+
+        reverse();
+
+        System.out.println("Reversed List:");
+        display();
+    }
+}
+
+
+--Doubly LL--
+
+import java.util.Scanner;
+
+class DNode {
+    int data;
+    DNode next;
+    DNode prev;
+
+    DNode(int data) {
+        this.data = data;
+        next = null;
+        prev = null;
+    }
+}
+
+public class DoublyLinkedList {
+
+    static DNode head = null;
+
+    static void insertAtStart(int data) {
+        DNode newNode = new DNode(data);
+
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+
+        newNode.next = head;
+        head.prev = newNode;
+        head = newNode;
+    }
+
+    static void insertAtEnd(int data) {
+        DNode newNode = new DNode(data);
+
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+
+        DNode temp = head;
+
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+
+        temp.next = newNode;
+        newNode.prev = temp;
+    }
+
+    static void insertAtPos(int data, int pos) {
+
+        if (pos == 1) {
+            insertAtStart(data);
+            return;
+        }
+
+        DNode temp = head;
+
+        for (int i = 1; i < pos - 1 && temp != null; i++) {
+            temp = temp.next;
+        }
+
+        if (temp == null) {
+            System.out.println("Invalid Position");
+            return;
+        }
+
+        DNode newNode = new DNode(data);
+
+        newNode.prev = temp;
+        newNode.next = temp.next;
+
+        if (temp.next != null) {
+            temp.next.prev = newNode;
+        }
+
+        temp.next = newNode;
+    }
+
+    static void display() {
+
+        if (head == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+
+        DNode temp = head;
+
+        while (temp != null) {
+            System.out.print(temp.data + " <-> ");
+            temp = temp.next;
+        }
+
+        System.out.println("NULL");
+    }
+
+    static void deleteFromStart() {
+
+        if (head == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+
+        if (head.next == null) {
+            head = null;
+            return;
+        }
+
+        head = head.next;
+        head.prev = null;
+    }
+
+    static void deleteFromEnd() {
+
+        if (head == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+
+        if (head.next == null) {
+            head = null;
+            return;
+        }
+
+        DNode temp = head;
+
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+
+        temp.prev.next = null;
+    }
+
+    static void deleteFromPos(int pos) {
+
+        if (head == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+
+        if (pos == 1) {
+            deleteFromStart();
+            return;
+        }
+
+        DNode temp = head;
+
+        for (int i = 1; i < pos && temp != null; i++) {
+            temp = temp.next;
+        }
+
+        if (temp == null) {
+            System.out.println("Invalid Position");
+            return;
+        }
+
+        if (temp.next != null) {
+            temp.next.prev = temp.prev;
+        }
+
+        temp.prev.next = temp.next;
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int choice, data, pos;
+
+        do {
+
+            System.out.println("\n----- Doubly Linked List -----");
+            System.out.println("1. Insert At Start");
+            System.out.println("2. Insert At End");
+            System.out.println("3. Insert At Position");
+            System.out.println("4. Display");
+            System.out.println("5. Delete From Start");
+            System.out.println("6. Delete From End");
+            System.out.println("7. Delete From Position");
+            System.out.println("8. Exit");
+
+            System.out.print("Enter Choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    System.out.print("Enter Data: ");
+                    insertAtStart(sc.nextInt());
+                    break;
+
+                case 2:
+                    System.out.print("Enter Data: ");
+                    insertAtEnd(sc.nextInt());
+                    break;
+
+                case 3:
+                    System.out.print("Enter Position: ");
+                    pos = sc.nextInt();
+                    System.out.print("Enter Data: ");
+                    data = sc.nextInt();
+                    insertAtPos(data, pos);
+                    break;
+
+                case 4:
+                    display();
+                    break;
+
+                case 5:
+                    deleteFromStart();
+                    break;
+
+                case 6:
+                    deleteFromEnd();
+                    break;
+
+                case 7:
+                    System.out.print("Enter Position: ");
+                    deleteFromPos(sc.nextInt());
+                    break;
+
+                case 8:
+                    System.out.println("Exiting...");
+                    break;
+
+                default:
+                    System.out.println("Invalid Choice");
+            }
+
+        } while (choice != 8);
+
+        sc.close();
+    }
+}
+
+
+--Circular SLL--
+
+import java.util.Scanner;
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class CircularLinkedList {
+
+    static Node tail = null;
+
+    static void insertAtStart(int data) {
+        Node newNode = new Node(data);
+
+        if (tail == null) {
+            tail = newNode;
+            tail.next = tail;
+            return;
+        }
+
+        newNode.next = tail.next;
+        tail.next = newNode;
+    }
+
+    static void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+
+        if (tail == null) {
+            tail = newNode;
+            tail.next = tail;
+            return;
+        }
+
+        newNode.next = tail.next;
+        tail.next = newNode;
+        tail = newNode;
+    }
+
+    static void insertAtPosition(int data, int pos) {
+
+        if (pos == 1) {
+            insertAtStart(data);
+            return;
+        }
+
+        if (tail == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+
+        Node temp = tail.next;
+
+        for (int i = 1; i < pos - 1 && temp != tail; i++) {
+            temp = temp.next;
+        }
+
+        Node newNode = new Node(data);
+        newNode.next = temp.next;
+        temp.next = newNode;
+
+        if (temp == tail) {
+            tail = newNode;
+        }
+    }
+
+    static void deleteFromStart() {
+
+        if (tail == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+
+        if (tail.next == tail) {
+            tail = null;
+            return;
+        }
+
+        tail.next = tail.next.next;
+    }
+
+    static void deleteFromEnd() {
+
+        if (tail == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+
+        if (tail.next == tail) {
+            tail = null;
+            return;
+        }
+
+        Node temp = tail.next;
+
+        while (temp.next != tail) {
+            temp = temp.next;
+        }
+
+        temp.next = tail.next;
+        tail = temp;
+    }
+
+    static void deleteFromPosition(int pos) {
+
+        if (tail == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+
+        if (pos == 1) {
+            deleteFromStart();
+            return;
+        }
+
+        Node temp = tail.next;
+
+        for (int i = 1; i < pos - 1 && temp.next != tail.next; i++) {
+            temp = temp.next;
+        }
+
+        if (temp.next == tail.next) {
+            System.out.println("Invalid Position");
+            return;
+        }
+
+        if (temp.next == tail) {
+            deleteFromEnd();
+            return;
+        }
+
+        temp.next = temp.next.next;
+    }
+
+    static void display() {
+
+        if (tail == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+
+        Node temp = tail.next;
+
+        do {
+            System.out.print(temp.data + " -> ");
+            temp = temp.next;
+        } while (temp != tail.next);
+
+        System.out.println("(Back to Head)");
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int choice, data, pos;
+
+        do {
+
+            System.out.println("\n===== Circular Linked List =====");
+            System.out.println("1. Insert At Start");
+            System.out.println("2. Insert At End");
+            System.out.println("3. Insert At Position");
+            System.out.println("4. Display");
+            System.out.println("5. Delete From Start");
+            System.out.println("6. Delete From End");
+            System.out.println("7. Delete From Position");
+            System.out.println("8. Exit");
+
+            System.out.print("Enter Choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    System.out.print("Enter Data: ");
+                    insertAtStart(sc.nextInt());
+                    break;
+
+                case 2:
+                    System.out.print("Enter Data: ");
+                    insertAtEnd(sc.nextInt());
+                    break;
+
+                case 3:
+                    System.out.print("Enter Position: ");
+                    pos = sc.nextInt();
+                    System.out.print("Enter Data: ");
+                    data = sc.nextInt();
+                    insertAtPosition(data, pos);
+                    break;
+
+                case 4:
+                    display();
+                    break;
+
+                case 5:
+                    deleteFromStart();
+                    break;
+
+                case 6:
+                    deleteFromEnd();
+                    break;
+
+                case 7:
+                    System.out.print("Enter Position: ");
+                    deleteFromPosition(sc.nextInt());
+                    break;
+
+                case 8:
+                    System.out.println("Program Ended");
+                    break;
+
+                default:
+                    System.out.println("Invalid Choice");
+            }
+
+        } while (choice != 8);
+
+        sc.close();
+    }
+}
+
+--Circular DLL--
+
+import java.util.Scanner;
+
+class Node {
+    int data;
+    Node next;
+    Node prev;
+
+    Node(int data) {
+        this.data = data;
+        next = null;
+        prev = null;
+    }
+}
+
+public class CircularDoublyLinkedList {
+
+    static Node head = null;
+
+    // Insert at Beginning
+    static void insertAtStart(int data) {
+        Node newNode = new Node(data);
+
+        if (head == null) {
+            head = newNode;
+            head.next = head;
+            head.prev = head;
+            return;
+        }
+
+        Node last = head.prev;
+
+        newNode.next = head;
+        newNode.prev = last;
+
+        last.next = newNode;
+        head.prev = newNode;
+
+        head = newNode;
+    }
+
+    // Insert at End
+    static void insertAtEnd(int data) {
+
+        if (head == null) {
+            insertAtStart(data);
+            return;
+        }
+
+        Node newNode = new Node(data);
+        Node last = head.prev;
+
+        newNode.next = head;
+        newNode.prev = last;
+
+        last.next = newNode;
+        head.prev = newNode;
+    }
+
+    // Insert at Position
+    static void insertAtPosition(int data, int pos) {
+
+        if (pos == 1) {
+            insertAtStart(data);
+            return;
+        }
+
+        Node temp = head;
+
+        for (int i = 1; i < pos - 1 && temp.next != head; i++) {
+            temp = temp.next;
+        }
+
+        Node newNode = new Node(data);
+
+        newNode.next = temp.next;
+        newNode.prev = temp;
+
+        temp.next.prev = newNode;
+        temp.next = newNode;
+    }
+
+    // Delete from Beginning
+    static void deleteFromStart() {
+
+        if (head == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+
+        if (head.next == head) {
+            head = null;
+            return;
+        }
+
+        Node last = head.prev;
+
+        head = head.next;
+        head.prev = last;
+        last.next = head;
+    }
+
+    // Delete from End
+    static void deleteFromEnd() {
+
+        if (head == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+
+        if (head.next == head) {
+            head = null;
+            return;
+        }
+
+        Node last = head.prev;
+
+        last.prev.next = head;
+        head.prev = last.prev;
+    }
+
+    // Delete from Position
+    static void deleteFromPosition(int pos) {
+
+        if (head == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+
+        if (pos == 1) {
+            deleteFromStart();
+            return;
+        }
+
+        Node temp = head;
+
+        for (int i = 1; i < pos && temp.next != head; i++) {
+            temp = temp.next;
+        }
+
+        if (temp == head) {
+            System.out.println("Invalid Position");
+            return;
+        }
+
+        temp.prev.next = temp.next;
+        temp.next.prev = temp.prev;
+    }
+
+    // Display
+    static void display() {
+
+        if (head == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+
+        Node temp = head;
+
+        do {
+            System.out.print(temp.data + " <-> ");
+            temp = temp.next;
+        } while (temp != head);
+
+        System.out.println("(Back to Head)");
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int choice, data, pos;
+
+        do {
+
+            System.out.println("\n===== Circular Doubly Linked List =====");
+            System.out.println("1. Insert At Start");
+            System.out.println("2. Insert At End");
+            System.out.println("3. Insert At Position");
+            System.out.println("4. Display");
+            System.out.println("5. Delete From Start");
+            System.out.println("6. Delete From End");
+            System.out.println("7. Delete From Position");
+            System.out.println("8. Exit");
+
+            System.out.print("Enter Choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    System.out.print("Enter Data: ");
+                    insertAtStart(sc.nextInt());
+                    break;
+
+                case 2:
+                    System.out.print("Enter Data: ");
+                    insertAtEnd(sc.nextInt());
+                    break;
+
+                case 3:
+                    System.out.print("Enter Position: ");
+                    pos = sc.nextInt();
+                    System.out.print("Enter Data: ");
+                    data = sc.nextInt();
+                    insertAtPosition(data, pos);
+                    break;
+
+                case 4:
+                    display();
+                    break;
+
+                case 5:
+                    deleteFromStart();
+                    break;
+
+                case 6:
+                    deleteFromEnd();
+                    break;
+
+                case 7:
+                    System.out.print("Enter Position: ");
+                    deleteFromPosition(sc.nextInt());
+                    break;
+
+                case 8:
+                    System.out.println("Program Ended");
+                    break;
+
+                default:
+                    System.out.println("Invalid Choice");
+            }
+
+        } while (choice != 8);
+
+        sc.close();
+    }
+}
+
+--Stack Using LL--
+
+import java.util.Scanner;
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class StackLinkedList {
+
+    static Node top = null;
+
+    // Push Operation
+    static void push(int data) {
+        Node newNode = new Node(data);
+
+        newNode.next = top;
+        top = newNode;
+
+        System.out.println(data + " pushed into stack");
+    }
+
+    // Pop Operation
+    static void pop() {
+        if (top == null) {
+            System.out.println("Stack Underflow");
+            return;
+        }
+
+        System.out.println("Deleted Element: " + top.data);
+        top = top.next;
+    }
+
+    // Peek Operation
+    static void peek() {
+        if (top == null) {
+            System.out.println("Stack is Empty");
+            return;
+        }
+
+        System.out.println("Top Element: " + top.data);
+    }
+
+    // Display Operation
+    static void display() {
+        if (top == null) {
+            System.out.println("Stack is Empty");
+            return;
+        }
+
+        Node temp = top;
+
+        System.out.println("Stack Elements:");
+
+        while (temp != null) {
+            System.out.println(temp.data);
+            temp = temp.next;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int choice, data;
+
+        do {
+
+            System.out.println("\n===== STACK USING LINKED LIST =====");
+            System.out.println("1. Push");
+            System.out.println("2. Pop");
+            System.out.println("3. Peek");
+            System.out.println("4. Display");
+            System.out.println("5. Exit");
+
+            System.out.print("Enter Choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    System.out.print("Enter Data: ");
+                    data = sc.nextInt();
+                    push(data);
+                    break;
+
+                case 2:
+                    pop();
+                    break;
+
+                case 3:
+                    peek();
+                    break;
+
+                case 4:
+                    display();
+                    break;
+
+                case 5:
+                    System.out.println("Program Ended");
+                    break;
+
+                default:
+                    System.out.println("Invalid Choice");
+            }
+
+        } while (choice != 5);
+
+        sc.close();
+    }
+}
+
+--Queue Using LL--
+
+import java.util.Scanner;
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class QueueLinkedList {
+
+    static Node front = null;
+    static Node rear = null;
+
+    // Enqueue Operation
+    static void enqueue(int data) {
+        Node newNode = new Node(data);
+
+        if (rear == null) {
+            front = rear = newNode;
+        } else {
+            rear.next = newNode;
+            rear = newNode;
+        }
+
+        System.out.println(data + " inserted into Queue");
+    }
+
+    // Dequeue Operation
+    static void dequeue() {
+
+        if (front == null) {
+            System.out.println("Queue Underflow");
+            return;
+        }
+
+        System.out.println("Deleted Element: " + front.data);
+
+        front = front.next;
+
+        if (front == null) {
+            rear = null;
+        }
+    }
+
+    // Peek Operation
+    static void peek() {
+
+        if (front == null) {
+            System.out.println("Queue is Empty");
+            return;
+        }
+
+        System.out.println("Front Element: " + front.data);
+    }
+
+    // Display Operation
+    static void display() {
+
+        if (front == null) {
+            System.out.println("Queue is Empty");
+            return;
+        }
+
+        Node temp = front;
+
+        System.out.print("Queue: ");
+
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int choice, data;
+
+        do {
+
+            System.out.println("\n===== QUEUE USING LINKED LIST =====");
+            System.out.println("1. Enqueue");
+            System.out.println("2. Dequeue");
+            System.out.println("3. Peek");
+            System.out.println("4. Display");
+            System.out.println("5. Exit");
+
+            System.out.print("Enter Choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    System.out.print("Enter Data: ");
+                    data = sc.nextInt();
+                    enqueue(data);
+                    break;
+
+                case 2:
+                    dequeue();
+                    break;
+
+                case 3:
+                    peek();
+                    break;
+
+                case 4:
+                    display();
+                    break;
+
+                case 5:
+                    System.out.println("Program Ended");
+                    break;
+
+                default:
+                    System.out.println("Invalid Choice");
+            }
+
+        } while (choice != 5);
+
+        sc.close();
+    }
+}
+
+--Stack Using Array--
+
+import java.util.Scanner;
+
+public class StackArray {
+
+    int stack[];
+    int top;
+    int size;
+
+    StackArray(int size) {
+        this.size = size;
+        stack = new int[size];
+        top = -1;
+    }
+
+    void push(int data) {
+        if (top == size - 1) {
+            System.out.println("Stack Overflow");
+            return;
+        }
+
+        stack[++top] = data;
+        System.out.println(data + " Pushed");
+    }
+
+    void pop() {
+        if (top == -1) {
+            System.out.println("Stack Underflow");
+            return;
+        }
+
+        System.out.println("Deleted Element = " + stack[top--]);
+    }
+
+    void peek() {
+        if (top == -1) {
+            System.out.println("Stack Empty");
+            return;
+        }
+
+        System.out.println("Top Element = " + stack[top]);
+    }
+
+    void display() {
+        if (top == -1) {
+            System.out.println("Stack Empty");
+            return;
+        }
+
+        System.out.println("Stack Elements:");
+
+        for (int i = top; i >= 0; i--) {
+            System.out.print(stack[i] + " ");
+        }
+
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Stack Size: ");
+        int size = sc.nextInt();
+
+        StackArray s = new StackArray(size);
+
+        int ch, data;
+
+        do {
+            System.out.println("\n1.Push");
+            System.out.println("2.Pop");
+            System.out.println("3.Peek");
+            System.out.println("4.Display");
+            System.out.println("5.Exit");
+
+            System.out.print("Enter Choice: ");
+            ch = sc.nextInt();
+
+            switch (ch) {
+                case 1:
+                    System.out.print("Enter Data: ");
+                    data = sc.nextInt();
+                    s.push(data);
+                    break;
+
+                case 2:
+                    s.pop();
+                    break;
+
+                case 3:
+                    s.peek();
+                    break;
+
+                case 4:
+                    s.display();
+                    break;
+            }
+
+        } while (ch != 5);
+
+        sc.close();
+    }
+}
+
+--Queue Using Array--
+
+import java.util.Scanner;
+
+public class QueueArray {
+
+    int queue[];
+    int front, rear, size;
+
+    QueueArray(int size) {
+        this.size = size;
+        queue = new int[size];
+        front = -1;
+        rear = -1;
+    }
+
+    void enqueue(int data) {
+
+        if (rear == size - 1) {
+            System.out.println("Queue Overflow");
+            return;
+        }
+
+        if (front == -1)
+            front = 0;
+
+        queue[++rear] = data;
+
+        System.out.println(data + " Inserted");
+    }
+
+    void dequeue() {
+
+        if (front == -1 || front > rear) {
+            System.out.println("Queue Underflow");
+            return;
+        }
+
+        System.out.println("Deleted Element = " + queue[front]);
+        front++;
+    }
+
+    void display() {
+
+        if (front == -1 || front > rear) {
+            System.out.println("Queue Empty");
+            return;
+        }
+
+        System.out.println("Queue Elements:");
+
+        for (int i = front; i <= rear; i++) {
+            System.out.print(queue[i] + " ");
+        }
+
+        System.out.println();
+    }
+
+    void peek() {
+
+        if (front == -1 || front > rear) {
+            System.out.println("Queue Empty");
+            return;
+        }
+
+        System.out.println("Front Element = " + queue[front]);
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Queue Size: ");
+        int size = sc.nextInt();
+
+        QueueArray q = new QueueArray(size);
+
+        int ch, data;
+
+        do {
+            System.out.println("\n1.Enqueue");
+            System.out.println("2.Dequeue");
+            System.out.println("3.Peek");
+            System.out.println("4.Display");
+            System.out.println("5.Exit");
+
+            System.out.print("Enter Choice: ");
+            ch = sc.nextInt();
+
+            switch (ch) {
+
+                case 1:
+                    System.out.print("Enter Data: ");
+                    data = sc.nextInt();
+                    q.enqueue(data);
+                    break;
+
+                case 2:
+                    q.dequeue();
+                    break;
+
+                case 3:
+                    q.peek();
+                    break;
+
+                case 4:
+                    q.display();
+                    break;
+            }
+
+        } while (ch != 5);
+
+        sc.close();
+    }
+}
+
+--Circular Queue Simple--
+
+import java.util.*;
+
+public class CircularQueue {
+    static int front = -1, rear = -1;
+    static int[] queue;
+    static int size;
+
+    static void enqueue(int data) {
+        if ((rear + 1) % size == front) {
+            System.out.println("Queue Overflow");
+            return;
+        }
+
+        if (front == -1) {
+            front = rear = 0;
+        } else {
+            rear = (rear + 1) % size;
+        }
+
+        queue[rear] = data;
+    }
+
+    static void dequeue() {
+        if (front == -1) {
+            System.out.println("Queue Underflow");
+            return;
+        }
+
+        System.out.println("Deleted: " + queue[front]);
+
+        if (front == rear) {
+            front = rear = -1;
+        } else {
+            front = (front + 1) % size;
+        }
+    }
+
+    static void display() {
+        if (front == -1) {
+            System.out.println("Queue is Empty");
+            return;
+        }
+
+        int i = front;
+
+        while (true) {
+            System.out.print(queue[i] + " ");
+
+            if (i == rear)
+                break;
+
+            i = (i + 1) % size;
+        }
+
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Queue Size: ");
+        size = sc.nextInt();
+
+        queue = new int[size];
+
+        while (true) {
+            System.out.println("\n1.Enqueue");
+            System.out.println("2.Dequeue");
+            System.out.println("3.Display");
+            System.out.println("4.Exit");
+            System.out.print("Enter Choice: ");
+
+            int ch = sc.nextInt();
+
+            switch (ch) {
+                case 1:
+                    System.out.print("Enter Element: ");
+                    int data = sc.nextInt();
+                    enqueue(data);
+                    break;
+
+                case 2:
+                    dequeue();
+                    break;
+
+                case 3:
+                    display();
+                    break;
+
+                case 4:
+                    System.exit(0);
+
+                default:
+                    System.out.println("Invalid Choice");
+            }
+        }
+    }
+}
+
+--Array Operation--
+
+import java.util.Scanner;
+
+public class ArrayOperations {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int[] arr = new int[100];
+        int size = 0;
+        int choice;
+
+        do {
+
+            System.out.println("\n===== ARRAY OPERATIONS =====");
+            System.out.println("1. Insert Element");
+            System.out.println("2. Delete Element");
+            System.out.println("3. Search Element");
+            System.out.println("4. Display Array");
+            System.out.println("5. Exit");
+
+            System.out.print("Enter Choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+
+                case 1:
+
+                    System.out.print("Enter Element: ");
+                    int element = sc.nextInt();
+
+                    System.out.print("Enter Position (1 to " + (size + 1) + "): ");
+                    int pos = sc.nextInt();
+
+                    if (pos < 1 || pos > size + 1) {
+                        System.out.println("Invalid Position");
+                    } else {
+
+                        for (int i = size; i >= pos; i--) {
+                            arr[i] = arr[i - 1];
+                        }
+
+                        arr[pos - 1] = element;
+                        size++;
+
+                        System.out.println("Element Inserted");
+                    }
+                    break;
+
+                case 2:
+
+                    if (size == 0) {
+                        System.out.println("Array is Empty");
+                        break;
+                    }
+
+                    System.out.print("Enter Position to Delete: ");
+                    pos = sc.nextInt();
+
+                    if (pos < 1 || pos > size) {
+                        System.out.println("Invalid Position");
+                    } else {
+
+                        for (int i = pos - 1; i < size - 1; i++) {
+                            arr[i] = arr[i + 1];
+                        }
+
+                        size--;
+                        System.out.println("Element Deleted");
+                    }
+                    break;
+
+                case 3:
+
+                    if (size == 0) {
+                        System.out.println("Array is Empty");
+                        break;
+                    }
+
+                    System.out.print("Enter Element to Search: ");
+                    element = sc.nextInt();
+
+                    int found = 0;
+
+                    for (int i = 0; i < size; i++) {
+                        if (arr[i] == element) {
+                            System.out.println("Element Found at Position: " + (i + 1));
+                            found = 1;
+                            break;
+                        }
+                    }
+
+                    if (found == 0) {
+                        System.out.println("Element Not Found");
+                    }
+
+                    break;
+
+                case 4:
+
+                    if (size == 0) {
+                        System.out.println("Array is Empty");
+                    } else {
+
+                        System.out.print("Array Elements: ");
+
+                        for (int i = 0; i < size; i++) {
+                            System.out.print(arr[i] + " ");
+                        }
+
+                        System.out.println();
+                    }
+
+                    break;
+
+                case 5:
+                    System.out.println("Program Ended");
+                    break;
+
+                default:
+                    System.out.println("Invalid Choice");
+            }
+
+        } while (choice != 5);
+
+        sc.close();
+    }
+}
+
+--String Operation--
+Palindrome
+
+import java.util.*;
+
+public class Palindrome {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String str = sc.next();
+        String rev = "";
+
+        for(int i = str.length()-1; i >= 0; i--) {
+            rev += str.charAt(i);
+        }
+
+        if(str.equals(rev))
+            System.out.println("Palindrome");
+        else
+            System.out.println("Not Palindrome");
+    }
+}
+
+--Reverse String--
+
+import java.util.*;
+
+public class ReverseString {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String str = sc.next();
+
+        for(int i = str.length()-1; i >= 0; i--) {
+            System.out.print(str.charAt(i));
+        }
+    }
+}
+
+--First Non Repeating Characters--
+
+import java.util.*;
+
+public class FirstNonRepeating {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String str = sc.next();
+
+        for(int i = 0; i < str.length(); i++) {
+            boolean unique = true;
+
+            for(int j = 0; j < str.length(); j++) {
+                if(i != j && str.charAt(i) == str.charAt(j)) {
+                    unique = false;
+                    break;
+                }
+            }
+
+            if(unique) {
+                System.out.println(str.charAt(i));
+                return;
+            }
+        }
+    }
+}
+
+
+
+--Linear Search--
+
+import java.util.Scanner;
+
+public class LinearSearch {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Size: ");
+        int n = sc.nextInt();
+
+        int arr[] = new int[n];
+
+        System.out.println("Enter Elements:");
+
+        for(int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        System.out.print("Enter Element to Search: ");
+        int key = sc.nextInt();
+
+        int pos = -1;
+
+        for(int i = 0; i < n; i++) {
+            if(arr[i] == key) {
+                pos = i;
+                break;
+            }
+        }
+
+        if(pos != -1)
+            System.out.println("Element Found at Position " + (pos + 1));
+        else
+            System.out.println("Element Not Found");
+
+        sc.close();
+    }
+}
+
+--Binary Search--
+
+import java.util.Scanner;
+
+public class BinarySearch {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Size: ");
+        int n = sc.nextInt();
+
+        int arr[] = new int[n];
+
+        System.out.println("Enter Sorted Elements:");
+
+        for(int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        System.out.print("Enter Element to Search: ");
+        int key = sc.nextInt();
+
+        int low = 0;
+        int high = n - 1;
+        int pos = -1;
+
+        while(low <= high) {
+
+            int mid = (low + high) / 2;
+
+            if(arr[mid] == key) {
+                pos = mid;
+                break;
+            }
+            else if(key < arr[mid]) {
+                high = mid - 1;
+            }
+            else {
+                low = mid + 1;
+            }
+        }
+
+        if(pos != -1)
+            System.out.println("Element Found at Position " + (pos + 1));
+        else
+            System.out.println("Element Not Found");
+
+        sc.close();
+    }
+}
+
+--Sorting--
+--Bubble Sort--
+
+import java.util.Scanner;
+
+public class BubbleSort {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Size: ");
+        int n = sc.nextInt();
+
+        int arr[] = new int[n];
+
+        System.out.println("Enter Elements:");
+
+        for (int i = 0; i < n; i++)
+            arr[i] = sc.nextInt();
+
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+
+        System.out.println("Sorted Array:");
+
+        for (int x : arr)
+            System.out.print(x + " ");
+    }
+}
+
+--Selection Sort--
+
+import java.util.Scanner;
+
+public class SelectionSort {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Size: ");
+        int n = sc.nextInt();
+
+        int arr[] = new int[n];
+
+        for (int i = 0; i < n; i++)
+            arr[i] = sc.nextInt();
+
+        for (int i = 0; i < n - 1; i++) {
+
+            int min = i;
+
+            for (int j = i + 1; j < n; j++) {
+                if (arr[j] < arr[min])
+                    min = j;
+            }
+
+            int temp = arr[i];
+            arr[i] = arr[min];
+            arr[min] = temp;
+        }
+
+        for (int x : arr)
+            System.out.print(x + " ");
+    }
+}
+
+--Insertion Sort--
+
+import java.util.Scanner;
+
+public class InsertionSort {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Size: ");
+        int n = sc.nextInt();
+
+        int arr[] = new int[n];
+
+        for (int i = 0; i < n; i++)
+            arr[i] = sc.nextInt();
+
+        for (int i = 1; i < n; i++) {
+
+            int key = arr[i];
+            int j = i - 1;
+
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+
+            arr[j + 1] = key;
+        }
+
+        for (int x : arr)
+            System.out.print(x + " ");
+    }
+}
+
+--Merge Sort--
+
+import java.util.Scanner;
+
+public class MergeSort {
+
+    static void merge(int arr[], int low, int mid, int high) {
+
+        int temp[] = new int[high - low + 1];
+
+        int i = low;
+        int j = mid + 1;
+        int k = 0;
+
+        while (i <= mid && j <= high) {
+
+            if (arr[i] < arr[j])
+                temp[k++] = arr[i++];
+            else
+                temp[k++] = arr[j++];
+        }
+
+        while (i <= mid)
+            temp[k++] = arr[i++];
+
+        while (j <= high)
+            temp[k++] = arr[j++];
+
+        for (i = low, k = 0; i <= high; i++, k++)
+            arr[i] = temp[k];
+    }
+
+    static void mergeSort(int arr[], int low, int high) {
+
+        if (low < high) {
+
+            int mid = (low + high) / 2;
+
+            mergeSort(arr, low, mid);
+            mergeSort(arr, mid + 1, high);
+
+            merge(arr, low, mid, high);
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Size: ");
+        int n = sc.nextInt();
+
+        int arr[] = new int[n];
+
+        System.out.println("Enter Elements:");
+
+        for (int i = 0; i < n; i++)
+            arr[i] = sc.nextInt();
+
+        mergeSort(arr, 0, n - 1);
+
+        System.out.println("Sorted Array:");
+
+        for (int x : arr)
+            System.out.print(x + " ");
+    }
+}
+
+--Quick Sort--
+
+import java.util.Scanner;
+
+public class QuickSort {
+
+    static int partition(int arr[], int low, int high) {
+
+        int pivot = arr[high];
+
+        int i = low - 1;
+
+        for (int j = low; j < high; j++) {
+
+            if (arr[j] < pivot) {
+
+                i++;
+
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+
+        int temp = arr[i + 1];
+        arr[i + 1] = arr[high];
+        arr[high] = temp;
+
+        return i + 1;
+    }
+
+    static void quickSort(int arr[], int low, int high) {
+
+        if (low < high) {
+
+            int p = partition(arr, low, high);
+
+            quickSort(arr, low, p - 1);
+            quickSort(arr, p + 1, high);
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Size: ");
+        int n = sc.nextInt();
+
+        int arr[] = new int[n];
+
+        System.out.println("Enter Elements:");
+
+        for (int i = 0; i < n; i++)
+            arr[i] = sc.nextInt();
+
+        quickSort(arr, 0, n - 1);
+
+        System.out.println("Sorted Array:");
+
+        for (int x : arr)
+            System.out.print(x + " ");
+    }
+}
+
+--Heap Sort--
+
+import java.util.Scanner;
+
+public class HeapSort {
+
+    void heapify(int arr[], int n, int i) {
+
+        int largest = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+
+        if (left < n && arr[left] > arr[largest])
+            largest = left;
+
+        if (right < n && arr[right] > arr[largest])
+            largest = right;
+
+        if (largest != i) {
+
+            int temp = arr[i];
+            arr[i] = arr[largest];
+            arr[largest] = temp;
+
+            heapify(arr, n, largest);
+        }
+    }
+
+    void heapSort(int arr[], int n) {
+
+        // Build Max Heap
+        for (int i = n / 2 - 1; i >= 0; i--)
+            heapify(arr, n, i);
+
+        // Extract elements one by one
+        for (int i = n - 1; i > 0; i--) {
+
+            int temp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = temp;
+
+            heapify(arr, i, 0);
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Size: ");
+        int n = sc.nextInt();
+
+        int arr[] = new int[n];
+
+        System.out.println("Enter Elements:");
+
+        for (int i = 0; i < n; i++)
+            arr[i] = sc.nextInt();
+
+        HeapSort h = new HeapSort();
+        h.heapSort(arr, n);
+
+        System.out.println("Sorted Array:");
+
+        for (int i = 0; i < n; i++)
+            System.out.print(arr[i] + " ");
+
+        sc.close();
+    }
+}
+
+--Recursion--
+--Power using rec--
+
+import java.util.*;
+
+public class PowerRecursion {
+
+    static int power(int a, int b) {
+        if (b == 0)
+            return 1;
+
+        return a * power(a, b - 1);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Base: ");
+        int a = sc.nextInt();
+
+        System.out.print("Enter Exponent: ");
+        int b = sc.nextInt();
+
+        System.out.println("Result = " + power(a, b));
+    }
+}
+
+--Factorial--
+
+import java.util.Scanner;
+
+public class FactorialRecursion {
+
+    static int factorial(int n) {
+
+        if (n == 0 || n == 1)
+            return 1;
+
+        return n * factorial(n - 1);
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Number: ");
+        int n = sc.nextInt();
+
+        System.out.println("Factorial = " + factorial(n));
+
+        sc.close();
+    }
+}
+
+--Fibonacci Series--
+
+import java.util.Scanner;
+
+public class FibonacciRecursion {
+
+    static int fibonacci(int n) {
+
+        if (n == 0)
+            return 0;
+
+        if (n == 1)
+            return 1;
+
+        return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Number of Terms: ");
+        int n = sc.nextInt();
+
+        System.out.println("Fibonacci Series:");
+
+        for (int i = 0; i < n; i++) {
+            System.out.print(fibonacci(i) + " ");
+        }
+
+        sc.close();
+    }
+}
+
+--Sum of Digit recursion--
+
+import java.util.*;
+
+public class SumOfDigits {
+
+    static int sumDigits(int n) {
+        if (n == 0)
+            return 0;
+
+        return (n % 10) + sumDigits(n / 10);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Number: ");
+        int n = sc.nextInt();
+
+        System.out.println("Sum of Digits = " + sumDigits(n));
+    }
+}
+
+--Balanced Paranthesis using Stack--
+
+import java.util.*;
+
+public class BalancedParentheses {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Expression: ");
+        String exp = sc.nextLine();
+
+        Stack<Character> st = new Stack<>();
+        boolean balanced = true;
+
+        for (int i = 0; i < exp.length(); i++) {
+            char ch = exp.charAt(i);
+
+            if (ch == '(' || ch == '{' || ch == '[') {
+                st.push(ch);
+            }
+            else if (ch == ')' || ch == '}' || ch == ']') {
+
+                if (st.isEmpty()) {
+                    balanced = false;
+                    break;
+                }
+
+                char top = st.pop();
+
+                if ((ch == ')' && top != '(') ||
+                    (ch == '}' && top != '{') ||
+                    (ch == ']' && top != '[')) {
+                    balanced = false;
+                    break;
+                }
+            }
+        }
+
+        if (!st.isEmpty())
+            balanced = false;
+
+        if (balanced)
+            System.out.println("Balanced");
+        else
+            System.out.println("Not Balanced");
+    }
+}
+
+--Rotate Array by K--
+
+import java.util.*;
+
+public class RotateArray {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Size: ");
+        int n = sc.nextInt();
+
+        int arr[] = new int[n];
+
+        System.out.println("Enter Elements:");
+        for(int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        System.out.print("Enter K: ");
+        int k = sc.nextInt();
+
+        k = k % n;
+
+        int temp[] = new int[n];
+
+        for(int i = 0; i < n; i++) {
+            temp[(i + k) % n] = arr[i];
+        }
+
+        System.out.println("Rotated Array:");
+
+        for(int i = 0; i < n; i++) {
+            System.out.print(temp[i] + " ");
+        }
+    }
+}
+
+--Second Largest--
+
+import java.util.*;
+
+public class SecondLargest {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Size: ");
+        int n = sc.nextInt();
+
+        int arr[] = new int[n];
+
+        System.out.println("Enter Elements:");
+        for(int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        int largest = Integer.MIN_VALUE;
+        int secondLargest = Integer.MIN_VALUE;
+
+        for(int i = 0; i < n; i++) {
+            if(arr[i] > largest) {
+                secondLargest = largest;
+                largest = arr[i];
+            }
+            else if(arr[i] > secondLargest && arr[i] != largest) {
+                secondLargest = arr[i];
+            }
+        }
+
+        if(secondLargest == Integer.MIN_VALUE)
+            System.out.println("-1");
+        else
+            System.out.println("Second Largest = " + secondLargest);
+    }
+}
